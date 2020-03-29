@@ -1,3 +1,5 @@
+// Took references for trie logic from https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/trie
+
 /***  AUTOCOMPLETEPROVIDER  ***/
 export default function AutocompleteProvider() {
   this.root = new Candidate(null);
@@ -12,10 +14,10 @@ AutocompleteProvider.prototype.getWords = function(fragment) {
 
   // for each word, gather the candidates
   words.forEach(word => {
-    var candidate = this.root;
+    let candidate = this.root;
 
     // find the candidate that best matches the word
-    for (var i = 0; i < word.length; i++) {
+    for (let i = 0; i < word.length; i++) {
       if (candidate.children[word[i]]) {
         candidate = candidate.children[word[i]];
       } else {
@@ -56,8 +58,8 @@ Candidate.prototype.getConfidence = function() {
 
 // getWord returns the autocomplete candidate
 Candidate.prototype.getWord = function() {
-  var candidate = this;
-  var output = [];
+  let candidate = this;
+  let output = [];
 
   while (candidate !== null) {
     output.unshift(candidate.key);
@@ -75,14 +77,14 @@ function getAllWords(candidate, candidates) {
     candidates.push(candidate);
   }
 
-  for (var child in candidate.children) {
+  for (let child in candidate.children) {
     getAllWords(candidate.children[child], candidates);
   }
 }
 
 // insertWord updates the provider with an individual word fragment
 function insertWord(candidate, word) {
-  for (var i = 0; i < word.length; i++) {
+  for (let i = 0; i < word.length; i++) {
     if (!candidate.children[word[i]]) {
       candidate.children[word[i]] = new Candidate(word[i]);
       candidate.children[word[i]].parent = candidate;
