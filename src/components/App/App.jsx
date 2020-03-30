@@ -30,6 +30,7 @@ export default function App() {
   // handleSubmission trains the provider with the input
   const handleSubmission = () => {
     provider.train(input);
+    setInput("");
   };
 
   return (
@@ -44,7 +45,12 @@ export default function App() {
           renderInput={params => (
             <TextField
               {...params}
+              inputProps={{
+                ...params.inputProps,
+                value: input
+              }}
               onChange={handleChange}
+              onKeyDown={e => e.key === "Enter" && handleSubmission()}
               placeholder="Enter text here..."
               value={input}
               variant="filled"
